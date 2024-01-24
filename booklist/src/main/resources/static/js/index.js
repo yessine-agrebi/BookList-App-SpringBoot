@@ -21,6 +21,7 @@ class UI {
             <td>${book.author}</td>
             <td>${book.isbn}</td>
             <td>${book.year}</td>
+            <td>${book.id}</td>
             <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
         list.appendChild(row); 
@@ -91,14 +92,23 @@ class Store {
     }
 
 
-    static removeBook(isbn){
-        const books = Store.getBooks();
-        books.forEach( function(book, index) {
-            if(book.isbn === isbn){
-                books.splice(index, 1);
+    static async removeBook(id){
+        try {
+            // Make a DELETE request to the server
+            const response = await fetch(`http://localhost:8089/api/books/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        });
-        localStorage.setItem('books', JSON.stringify(books));
+            UI.showAlert('Book deleted successfully:', "success");
+        } catch (error) {
+            console.error('Error deleting book:', error);
+            throw error; // You may want to handle or propagate the error based on your requirements
+        }
     }
 }
 document.addEventListener('DOMContentLoaded', UI.DisplayBooks);
@@ -121,5 +131,4 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
  document.querySelector('#book-list').addEventListener('click', (e) => {
     UI.deleteBook(e.target);
     Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
-      UI.showAlert('Book Removed', 'success'); 
  })
