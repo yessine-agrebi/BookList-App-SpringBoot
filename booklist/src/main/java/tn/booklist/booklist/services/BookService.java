@@ -1,10 +1,12 @@
-package tn.booklist.services;
+package tn.booklist.booklist.services;
 
-import tn.booklist.entities.Book;
-import tn.booklist.repository.BookRepository;
+import org.springframework.stereotype.Service;
+import tn.booklist.booklist.entities.Book;
+import tn.booklist.booklist.repository.BookRepository;
 
 import java.util.List;
 
+@Service
 public class BookService {
     private final BookRepository bookRepository;
 

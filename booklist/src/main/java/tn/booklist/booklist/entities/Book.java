@@ -1,4 +1,4 @@
-package tn.booklist.entities;
+package tn.booklist.booklist.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,8 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "isbn", nullable = false)
+    private String isbn;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "author", nullable = false)

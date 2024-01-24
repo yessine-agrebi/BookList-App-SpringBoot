@@ -1,9 +1,9 @@
-package tn.booklist.controllers;
+package tn.booklist.booklist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tn.booklist.entities.Book;
-import tn.booklist.services.BookService;
+import tn.booklist.booklist.entities.Book;
+import tn.booklist.booklist.services.BookService;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class BookController {
     private final BookService bookService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService){
         this.bookService = bookService;
     }
     @GetMapping
